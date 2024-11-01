@@ -14,9 +14,48 @@ exports[`<Main /> Deve renderizar o heading 1`] = `
   justify-content: center;
 }
 
+.c1 {
+  width: 25rem;
+  margin-bottom: 2rem;
+}
+
+.c2 {
+  font-size: 2.5rem;
+}
+
+.c3 {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.c4 {
+  margin-top: 3rem;
+  width: min(30rem, 100%);
+}
+
 <main
   class="c0"
 >
+  <img
+    alt="Imagem de um átomo"
+    class="c1"
+    src="/img/logo.svg"
+  />
+  <h1
+    class="c2"
+  >
+    React Avançado
+  </h1>
+  <h2
+    class="c3"
+  >
+    Typescript ReactJS, NextJS e Styled Components
+  </h2>
+  <img
+    alt="Imagem de um desenvolvedor de frente para a tela de um computador"
+    class="c4"
+    src="/img/hero-illustration.svg"
+  />
   <h1>
     React Avançado
   </h1>

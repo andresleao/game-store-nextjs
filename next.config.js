@@ -2,7 +2,9 @@
 
 const nextConfig = {
   reactStrictMode: true,
-  // outras opções de configuração
+  compiler: {
+    styledComponents: true,
+  },
 };
 
 module.exports = nextConfig;

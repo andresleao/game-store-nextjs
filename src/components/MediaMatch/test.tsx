@@ -1,0 +1,33 @@
+import { render, screen } from '@testing-library/react';
+
+import MediaMatch from '.';
+
+describe('<MediaMatch />', () => {
+    let desktopHeading: Element;
+    let mobileHeading: Element;
+
+    beforeEach(() => {
+      render(
+        <>
+          <MediaMatch lessThan="medium">
+            <h1 data-testid="mobile" >
+              Only on Mobile
+            </h1>
+          </MediaMatch>
+          <MediaMatch greaterThan="medium">
+            <h1 data-testid="desktop">
+              Only on Desktop
+            </h1>
+          </MediaMatch>
+        </>
+      );
+
+      desktopHeading = screen.getByTestId('desktop');
+      mobileHeading = screen.getByTestId('mobile');
+    });
+
+    it('Deve ocultar se nenhuma media query for passada', () => {
+      expect(desktopHeading.parentElement).toHaveStyleRule('display', 'none');
+      expect(mobileHeading.parentElement).toHaveStyleRule('display', 'none');
+    });
+});
