@@ -1,3 +1,4 @@
+'use client';
 import styled, { css, DefaultTheme } from 'styled-components';
 import { ButtonProps } from '.';
 

@@ -1,3 +1,4 @@
+'use client';
 import styled, {css} from 'styled-components';
 import media from 'styled-media-query';
 import * as RibbonStyles from '../Ribbon/styles';
