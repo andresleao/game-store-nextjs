@@ -5,6 +5,8 @@ import media from 'styled-media-query';
 type WrapperProps = Pick<GameCardSliderProps, 'color'>
 export const Wrapper = styled.section<WrapperProps>`
   ${({ theme, color }) => css`
+    width: 100vw;
+
     ${media.lessThan('huge')`
       overflow-x: hidden;
     `}
@@ -18,7 +20,7 @@ export const Wrapper = styled.section<WrapperProps>`
       height: 100%;
     }
     .slick-list {
-      margin: 0 -${theme.spacings.xxsmall};
+       margin: 0 -${theme.spacings.xxsmall}
     }
     ${media.greaterThan('large')`
       .slick-slide > div {

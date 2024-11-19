@@ -1,16 +1,16 @@
-import Menu from '@/components/Menu';
 import { Container } from '@/components/Container';
-import Footer from '@/components/Footer';
-import Heading from '@/components/Heading';
 import { BannerProps } from '@/components/Banner';
 import { GameCardProps } from '@/components/GameCard';
-import Highlight, { HighlightProps } from '@/components/Highlight';
+import { HighlightProps } from '@/components/Highlight';
 import banners from '@/components/BannerSlider/mock';
 import newGames from '@/components/GameCardSlider/mock';
 import highlight from '@/components/Highlight/mock';
-import GameCardSlider from '@/components/GameCardSlider';
 import * as S from './styles';
 import BannerSlider from '@/components/BannerSlider';
+import { gql } from '@apollo/client';
+import { initializeApollo } from '@/lib/client';
+import Showcase from '@/components/Showcase';
+import Base from '../Base';
 
 export type HomeTemplateProps = {
     banners: BannerProps[];
@@ -42,55 +42,64 @@ async function getData(): Promise<HomeTemplateProps> {
     });
 }
 
+const GET_GAMES_QUERY = gql`
+    query {
+        games(pagination: { page: 1, pageSize: 100 }) {
+            name
+        }
+    }
+`;
+
+type GameProps = {
+    name: string;
+}
+
+type GamesResponseProps = {
+    games: GameProps[]
+}
+
 export default async function HomePage() {
-    const data = await getData();
+    const dataHome = await getData();
+    //const gamesData = await fetchGamesData();
+    const apolloClient = initializeApollo();
+    const { data: { games } } = await apolloClient.query<GamesResponseProps>({query: GET_GAMES_QUERY});
+
+    games.forEach((g) => console.log(g.name));
 
     return(
-        <section>
+        <Base>
             <Container>
-                <Menu />
                 <S.SectionBanner>
-                    <BannerSlider items={data.banners} />
+                    <BannerSlider items={dataHome.banners} />
                 </S.SectionBanner>
             </Container>
+
             <S.SectionNews>
-                <Container>
-                    <Heading
-                        lineLeft
-                        lineColor='secondary'
-                    >
-                        News
-                    </Heading>
-                    <GameCardSlider items={newGames} color="black" />
-                </Container>
+                <Showcase title='News' games={newGames} />
             </S.SectionNews>
-            <S.SectionMostPopular>
-                <Heading lineLeft lineColor="secondary">
-                    Most Popular
-                </Heading>
-                <Highlight {...data.mostPopularHighlight} />
-                <GameCardSlider items={data.mostPopularGames} />
-            </S.SectionMostPopular>
+
+            <Showcase
+                title='Most Popular'
+                highlight={dataHome.mostPopularHighlight}
+                games={dataHome.mostPopularGames}
+            />
+
             <S.SectionUpcoming>
-                <Heading lineLeft lineColor="secondary">
-                    Upcomming
-                </Heading>
-                <GameCardSlider items={data.upcommingGames} />
-                <Highlight {...data.upcommingHighligth} />
-                <GameCardSlider items={data.upcommingMoreGames} />
+                <Showcase
+                    title='Upcoming'
+                    games={dataHome.upcommingGames}
+                />
+                <Showcase
+                    highlight={dataHome.upcommingHighligth}
+                    games={dataHome.upcommingMoreGames}
+                />
             </S.SectionUpcoming>
-            <S.SectionFreeGames>
-                <Heading lineLeft lineColor="secondary">
-                    Free games
-                </Heading>
-                <Highlight {...data.freeHighligth} />
-                <GameCardSlider items={data.freeGames} />
-            </S.SectionFreeGames>
-              <S.SectionFooter>
-                <Container>
-                    <Footer />
-                </Container>
-            </S.SectionFooter>
-        </section>
+
+            <Showcase
+                title='Free games'
+                highlight={dataHome.freeHighligth}
+                games={dataHome.freeGames}
+            />
+        </Base>
     );
 };
