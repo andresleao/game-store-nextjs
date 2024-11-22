@@ -1,4 +1,5 @@
 import theme from '@/styles/theme';
+import Link from 'next/link';
 import styled, { css } from 'styled-components';
 import media from 'styled-media-query';
 
@@ -39,15 +40,9 @@ export const MenuGroup = styled.div`
     `}
 `;
 
-type MenuFullProps = {
-    isOpen: boolean;
-}
-
-export const MenuFull = styled.nav.withConfig({
-    shouldForwardProp: (prop) => !['isOpen'].includes(prop)
-})<MenuFullProps>`
-    ${({ theme, isOpen }) => css`
-        opacity: ${isOpen ? 1 : 0};
+export const MenuFull = styled.nav<{ $isOpen: boolean }>`
+    ${({ theme, $isOpen }) => css`
+        opacity: ${$isOpen ? 1 : 0};
         transition: opacity 0.3s ease-in-out;
         display: flex;
         flex-direction: column;
@@ -61,19 +56,19 @@ export const MenuFull = styled.nav.withConfig({
         right: 0;
         height: 100vh;
         overflow: hidden;
-        pointer-events: ${isOpen ? 'all' : 'none'};
+        pointer-events: ${$isOpen ? 'all' : 'none'};
 
         ${MenuLink} {
             color: ${theme.colors.black};
             font-weight: ${theme.font.bold};
             font-size: ${theme.font.sizes.xlarge};
             margin-bottom: ${theme.spacings.small};
-            transform: ${isOpen ? 'translateY(0)' : 'translateY(3rem)'};
+            transform: ${$isOpen ? 'translateY(0)' : 'translateY(3rem)'};
             transition: transform 0.3s ease-in-out;
         };
 
         ${RegisterBox} {
-            transform: ${isOpen ? 'translateY(0)' : 'translateY(3rem)'};
+            transform: ${$isOpen ? 'translateY(0)' : 'translateY(3rem)'};
             transition: transform 0.3s ease-in-out;
         };
 
@@ -93,7 +88,7 @@ export const MenuNav = styled.div`
     `}
 `;
 
-export const MenuLink = styled.a`
+export const MenuLink = styled(Link)`
     ${({ theme }) => css`
         position: relative;
         font-size: ${theme.font.sizes.medium};

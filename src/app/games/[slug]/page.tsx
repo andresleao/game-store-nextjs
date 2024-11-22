@@ -2,6 +2,8 @@ import GalleryMock from "@/components/Gallery/mock";
 import GameDetailsMock from "@/components/GameDetails/mock";
 import GameInfoMock from "@/components/GameInfo/mock";
 import Game, { GameTemplateProps } from "@/templates/Game";
+import HighlighMock from '@/components/Highlight/mock';
+import UpComingGamesMock from '@/components/GameCardSlider/mock';
 
 async function fetchGameData(): Promise<GameTemplateProps> {
     const descriptionHTML = `
@@ -29,6 +31,9 @@ async function fetchGameData(): Promise<GameTemplateProps> {
           gallery: GalleryMock,
           description: descriptionHTML,
           details: GameDetailsMock,
+          upcomingGames: UpComingGamesMock,
+          upcomingHighlight: HighlighMock,
+          recommendedGames: UpComingGamesMock,
         });
       }, 1000);
     });

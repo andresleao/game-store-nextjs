@@ -1,10 +1,14 @@
 'use client';
 import Base from '@/templates/Base';
-import * as S from './styles';
 import GameInfo, { GameInfoProps } from '@/components/GameInfo';
 import Gallery, { GalleryImageProps } from '@/components/Gallery';
 import TextContent from '@/components/TextContent';
 import GameDetails, { GameDetailsProps } from '@/components/GameDetails';
+import { GameCardProps } from '@/components/GameCard';
+import { HighlightProps } from '@/components/Highlight';
+import Showcase from '@/components/Showcase';
+import * as S from './styles';
+import Image from 'next/image';
 
 export type GameTemplateProps = {
   cover: string;
@@ -12,6 +16,9 @@ export type GameTemplateProps = {
   gallery?: GalleryImageProps[];
   description: string;
   details: GameDetailsProps;
+  upcomingGames: GameCardProps[];
+  upcomingHighlight: HighlightProps;
+  recommendedGames: GameCardProps[];
 }
 
 export default function Game({
@@ -19,11 +26,22 @@ export default function Game({
   gameInfo,
   gallery,
   description,
-  details
+  details,
+  upcomingGames,
+  upcomingHighlight,
+  recommendedGames,
 }: GameTemplateProps) {
   return (
     <Base>
-      <S.Cover src={cover} role="image" aria-label="cover" />
+      <S.Cover>
+        <Image
+          src={cover}
+          alt={gameInfo.title}
+          fill
+          priority
+        />
+      </S.Cover>
+
       <S.Main>
         <S.SectionGameInfo>
           <GameInfo {...gameInfo} />
@@ -34,11 +52,24 @@ export default function Game({
           </S.SectionGallery>
         }
         <S.SectionDescription>
-          <TextContent title='Description' content={description} />
+          <TextContent
+            title='Description'
+            content={description}
+          />
         </S.SectionDescription>
         <S.SectionGameDetails>
           <GameDetails {...details} />
         </S.SectionGameDetails>
+
+        <Showcase
+          title='Upcomming'
+          games={upcomingGames}
+          highlight={upcomingHighlight}
+        />
+        <Showcase
+          title='You may like these games'
+          games={recommendedGames}
+        />
       </S.Main>
     </Base>
   );

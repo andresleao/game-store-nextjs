@@ -6,6 +6,7 @@ import Logo from '../Logo';
 import * as S from './styles'
 import Button from '../Button';
 import MediaMatch from '../MediaMatch';
+import Link from 'next/link';
 
 export type MenuProps = {
   userName?: string;
@@ -25,13 +26,15 @@ const Menu = ({
       </MediaMatch>
 
       <S.LogoWrapper>
-        <Logo hideOnMobile />
+        <Link href="/" passHref>
+         <Logo hideOnMobile />
+        </Link>
       </S.LogoWrapper>
 
       <MediaMatch greaterThan='medium'>
         <S.MenuNav>
-          <S.MenuLink href="#">Home</S.MenuLink>
-          <S.MenuLink href="#">Explore</S.MenuLink>
+          <S.MenuLink href="/">Home</S.MenuLink>
+          <S.MenuLink href="/games">Explore</S.MenuLink>
         </S.MenuNav>
       </MediaMatch>
 
@@ -51,7 +54,7 @@ const Menu = ({
 
       <S.MenuFull
         aria-hidden={!isOpen}
-        isOpen={isOpen}
+        $isOpen={isOpen}
       >
         <S.CloseButton>
         <CloseIcon
@@ -60,7 +63,7 @@ const Menu = ({
         />
         </S.CloseButton>
         <S.MenuNav>
-          <S.MenuLink href="#">Home</S.MenuLink>
+          <S.MenuLink href="/">Home</S.MenuLink>
           <S.MenuLink href="#">Explore</S.MenuLink>
           {!!userName &&
             <>

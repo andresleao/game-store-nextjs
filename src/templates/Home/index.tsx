@@ -60,11 +60,8 @@ type GamesResponseProps = {
 
 export default async function HomePage() {
     const dataHome = await getData();
-    //const gamesData = await fetchGamesData();
     const apolloClient = initializeApollo();
     const { data: { games } } = await apolloClient.query<GamesResponseProps>({query: GET_GAMES_QUERY});
-
-    games.forEach((g) => console.log(g.name));
 
     return(
         <Base>

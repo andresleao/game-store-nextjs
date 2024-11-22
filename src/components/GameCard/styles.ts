@@ -23,10 +23,10 @@ export const Content = styled.div`
 `;
 
 export const ImageBox = styled.div`
+    min-height: 14rem;
     position: relative;
-    height: 14rem;
     width: 100%;
-    object-fit: cover;
+    background: #f6f7f8;
     background-image: linear-gradient(
         to right,
         #f6f7f8 0%,
@@ -37,11 +37,11 @@ export const ImageBox = styled.div`
     background-size: 80rem 14rem;
     animation: placeholderShimmer 1s linear infinite forwards;
 
-    /* img {
+    img {
         width: 100%;
-        height: 100%;
+        height: 16rem;
         object-fit: cover;
-    }; */
+    };
 
     @keyframes placeholderShimmer {
         0% {
