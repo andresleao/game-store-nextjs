@@ -8,8 +8,8 @@ export type BannerProps = {
   img: string;
   title: string;
   subtitle: string;
-  buttonLabel: string;
-  buttonLink: string;
+  buttonLabel?: string;
+  buttonLink?: string;
   ribbon?: React.ReactNode;
   ribbonColor?: RibbonColor;
   ribbonSize?: RibbonSize;

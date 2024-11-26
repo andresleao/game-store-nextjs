@@ -21,7 +21,7 @@ const GameInfo = ({
     </Heading>
 
     <Ribbon color='secondary'>
-      {`$${price}`}
+      {`${price}`}
     </Ribbon>
 
     <S.Description>

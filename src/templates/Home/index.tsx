@@ -2,13 +2,9 @@ import { Container } from '@/components/Container';
 import { BannerProps } from '@/components/Banner';
 import { GameCardProps } from '@/components/GameCard';
 import { HighlightProps } from '@/components/Highlight';
-import banners from '@/components/BannerSlider/mock';
 import newGames from '@/components/GameCardSlider/mock';
-import highlight from '@/components/Highlight/mock';
 import * as S from './styles';
 import BannerSlider from '@/components/BannerSlider';
-import { gql } from '@apollo/client';
-import { initializeApollo } from '@/lib/client';
 import Showcase from '@/components/Showcase';
 import Base from '../Base';
 
@@ -24,50 +20,15 @@ export type HomeTemplateProps = {
     freeHighligth: HighlightProps;
 }
 
-async function getData(): Promise<HomeTemplateProps> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({
-            banners: banners,
-            newGames: newGames,
-            mostPopularHighlight: highlight,
-            mostPopularGames: newGames,
-            upcommingGames: newGames,
-            upcommingHighligth: highlight,
-            upcommingMoreGames: newGames,
-            freeGames: newGames,
-            freeHighligth: highlight,
-        });
-      }, 1000);
-    });
-}
-
-const GET_GAMES_QUERY = gql`
-    query {
-        games(pagination: { page: 1, pageSize: 100 }) {
-            name
-        }
-    }
-`;
-
-type GameProps = {
-    name: string;
-}
-
-type GamesResponseProps = {
-    games: GameProps[]
-}
-
-export default async function HomePage() {
-    const dataHome = await getData();
-    const apolloClient = initializeApollo();
-    const { data: { games } } = await apolloClient.query<GamesResponseProps>({query: GET_GAMES_QUERY});
+export default async function HomePage({
+    ...props
+}: HomeTemplateProps) {
 
     return(
         <Base>
             <Container>
                 <S.SectionBanner>
-                    <BannerSlider items={dataHome.banners} />
+                    <BannerSlider items={props.banners} />
                 </S.SectionBanner>
             </Container>
 
@@ -77,25 +38,25 @@ export default async function HomePage() {
 
             <Showcase
                 title='Most Popular'
-                highlight={dataHome.mostPopularHighlight}
-                games={dataHome.mostPopularGames}
+                highlight={props.mostPopularHighlight}
+                games={props.mostPopularGames}
             />
 
             <S.SectionUpcoming>
                 <Showcase
                     title='Upcoming'
-                    games={dataHome.upcommingGames}
+                    games={props.upcommingGames}
                 />
                 <Showcase
-                    highlight={dataHome.upcommingHighligth}
-                    games={dataHome.upcommingMoreGames}
+                    highlight={props.upcommingHighligth}
+                    games={props.upcommingMoreGames}
                 />
             </S.SectionUpcoming>
 
             <Showcase
                 title='Free games'
-                highlight={dataHome.freeHighligth}
-                games={dataHome.freeGames}
+                highlight={props.freeHighligth}
+                games={props.freeGames}
             />
         </Base>
     );
