@@ -2,7 +2,6 @@ import { Container } from '@/components/Container';
 import { BannerProps } from '@/components/Banner';
 import { GameCardProps } from '@/components/GameCard';
 import { HighlightProps } from '@/components/Highlight';
-import newGames from '@/components/GameCardSlider/mock';
 import * as S from './styles';
 import BannerSlider from '@/components/BannerSlider';
 import Showcase from '@/components/Showcase';
@@ -33,7 +32,7 @@ export default async function HomePage({
             </Container>
 
             <S.SectionNews>
-                <Showcase title='News' games={newGames} />
+                <Showcase title="News" games={props.newGames} />
             </S.SectionNews>
 
             <Showcase

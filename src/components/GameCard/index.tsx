@@ -10,8 +10,8 @@ export type GameCardProps = {
   title: string;
   developer: string;
   img: string;
-  price: string;
-  promotionalPrice?: string;
+  price: number;
+  promotionalPrice?: number;
   isFavorite?: boolean;
   onFav?: () => void;
   ribbon?: React.ReactNode;

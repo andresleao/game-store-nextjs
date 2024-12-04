@@ -1,19 +1,15 @@
 import { gql } from "@apollo/client";
+import { GameFragment } from "@/graphql/fragments/game";
+
 
 export const QUERY_GAMES = gql`
     query QueryGames($pageSize: Int!) {
         games(pagination: { pageSize: $pageSize }) {
-            name
-            slug
-            cover {
-            url
-            }
-            developers {
-            name
-            }
-            price
+          ...GameFragment
         }
     }
+
+    ${GameFragment}
 `;
 
 export const QUERY_GAME_BY_SLUG = gql`
@@ -26,20 +22,20 @@ export const QUERY_GAME_BY_SLUG = gql`
             rating
             release_date
             gallery {
-            src: url
-            label: alternativeText
+                src: url
+                label: alternativeText
             }
             cover {
-            src: url
+                src: url
             }
             developers {
-            name
+                name
             }
             categories {
-            name
+                name
             }
             platforms {
-            name
+                name
             }
         }
     }
